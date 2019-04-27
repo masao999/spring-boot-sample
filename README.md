@@ -7,5 +7,6 @@
 文字列"hello"を返します。
 
 ```text
-curl http://localhost:8080/hello
+> curl http://localhost:8080/hello
+hello
 ```
