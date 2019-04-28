@@ -16,6 +16,9 @@ public class HelloRepositoryImplTest {
      */
     private HelloRepositoryImpl helloRepository;
 
+    /**
+     * 事前処理
+     */
     @Before
     public void setUp() {
         helloRepository = new HelloRepositoryImpl();
