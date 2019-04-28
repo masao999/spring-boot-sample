@@ -13,7 +13,7 @@ import java.io.IOException;
 public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHandler {
 
     public void onAuthenticationFailure(HttpServletRequest request,
-                                 HttpServletResponse response, AuthenticationException exception)
+                                        HttpServletResponse response, AuthenticationException exception)
             throws IOException {
         response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());
     }
