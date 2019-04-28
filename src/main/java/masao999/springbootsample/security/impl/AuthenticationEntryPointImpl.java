@@ -18,8 +18,8 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
     /**
      * 未認証のユーザが認証の必要なAPIにアクセスした場合の処理
      *
-     * @param request リクエスト
-     * @param response レスポンス
+     * @param request       リクエスト
+     * @param response      レスポンス
      * @param authException 認証時に発生した例外
      * @throws IOException 入出力時に発生した例外
      */

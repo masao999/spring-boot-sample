@@ -17,8 +17,8 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
     /**
      * 認証が成功した場合の処理
      *
-     * @param request リクエスト
-     * @param response レスポンス
+     * @param request        リクエスト
+     * @param response       レスポンス
      * @param authentication 認証クラス
      */
     @Override

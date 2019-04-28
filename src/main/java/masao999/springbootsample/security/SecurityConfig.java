@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *
      * @param authenticationSuccessHandler 認証が成功した場合のクラス
      * @param authenticationFailureHandler 認証が失敗した場合のクラス
-     * @param authenticationEntryPoint 未認証のユーザが認証の必要なAPIにアクセスした場合のクラス
+     * @param authenticationEntryPoint     未認証のユーザが認証の必要なAPIにアクセスした場合のクラス
      */
     @Autowired
     public SecurityConfig(

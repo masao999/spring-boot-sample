@@ -18,8 +18,8 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
     /**
      * 認証が失敗した場合の処理
      *
-     * @param request リクエスト
-     * @param response レスポンス
+     * @param request   リクエスト
+     * @param response  レスポンス
      * @param exception 認証時に発生した例外
      * @throws IOException 入出力時に発生した例外
      */
