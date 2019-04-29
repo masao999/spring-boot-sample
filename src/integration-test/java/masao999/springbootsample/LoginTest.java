@@ -25,7 +25,7 @@ public class LoginTest {
      * 認証処理の正常系テストケース
      */
     @Test
-    @SuppressWarnings(value = {"all"})
+    @SuppressWarnings(value = {"ConstantConditions"})
     public void testLogin() {
         final String body = "username=username&password=password";
         HttpHeaders headers = new HttpHeaders();
