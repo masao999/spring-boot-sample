@@ -1,7 +1,7 @@
 package masao999.springbootsample.repository;
 
 /**
- * hello APIのRepositoryクラス
+ * hello APIのRepositoryインタフェース
  */
 public interface HelloRepository {
 

@@ -1,7 +1,7 @@
 package masao999.springbootsample.service;
 
 /**
- * hello APIのServiceクラス
+ * hello APIのServiceインタフェース
  */
 public interface HelloService {
 

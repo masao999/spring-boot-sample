@@ -11,14 +11,14 @@ import org.springframework.stereotype.Service;
 public class HelloServiceImpl implements HelloService {
 
     /**
-     * hello APIのRepositoryクラス
+     * hello APIのRepository
      */
     private final HelloRepository helloRepository;
 
     /**
      * コンストラクタ
      *
-     * @param helloRepository hello APIのRepositoryクラス
+     * @param helloRepository hello APIのRepository
      */
     public HelloServiceImpl(HelloRepository helloRepository) {
         this.helloRepository = helloRepository;

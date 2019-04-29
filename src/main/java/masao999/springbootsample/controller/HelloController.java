@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     /**
-     * hello APIのServiceクラス
+     * hello APIのService
      */
     private final HelloService helloService;
 
     /**
      * コンストラクタ
      *
-     * @param helloService hello APIのServiceクラス
+     * @param helloService hello APIのService
      */
     public HelloController(HelloService helloService) {
         this.helloService = helloService;
