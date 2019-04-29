@@ -36,7 +36,7 @@ public class ListTest {
                 new HttpEntity<>(body, headersForLogin),
                 String.class);
         headers = new HttpHeaders();
-        headers.add("Cookie", response.getHeaders().get("Set-Cookie").get(0));
+        headers.add("Cookie", response.getHeaders().get("Set-Cookie").get(1));
     }
 
     /**
@@ -50,7 +50,7 @@ public class ListTest {
                 HttpMethod.GET,
                 new HttpEntity<>(null, headers),
                 String.class);
-        assertThat(response.getBody().toString(), is("{\"response\":[\"hoge\"]}"));
+        assertThat(response.getBody().toString(), is("{\"response\":[\"one\",\"two\",\"three\"]}"));
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
     }
 
