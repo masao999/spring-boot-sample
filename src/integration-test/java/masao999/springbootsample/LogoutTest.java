@@ -88,12 +88,12 @@ public class LogoutTest {
         assertThat(response.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
 
         // 認証が必要なAPIがまだ呼び出せる
-        ResponseEntity responseBeforeLogout = testRestTemplate.exchange(
+        ResponseEntity responseAfterLogout = testRestTemplate.exchange(
                 "/hello",
                 HttpMethod.GET,
                 new HttpEntity<>(null, headers),
                 String.class);
-        assertThat(responseBeforeLogout.getBody().toString(), is("hello"));
-        assertThat(responseBeforeLogout.getStatusCode(), is(HttpStatus.OK));
+        assertThat(responseAfterLogout.getBody().toString(), is("hello"));
+        assertThat(responseAfterLogout.getStatusCode(), is(HttpStatus.OK));
     }
 }

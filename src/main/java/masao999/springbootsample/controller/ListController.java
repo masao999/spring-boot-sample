@@ -30,9 +30,9 @@ public class ListController {
     /**
      * GETメソッドでのリクエストに対応
      *
-     * @return  sampleテーブルの全行
+     * @return sampleテーブルの全行
      */
-    @GetMapping(path = "/hello")
+    @GetMapping(path = "/list")
     public List<Sample> list() {
         return listService.list();
     }

@@ -1,1 +1,1 @@
-INSERT INTO sample (name) VALUES ("hoge");
+INSERT INTO sample (name) VALUES ('hoge');
