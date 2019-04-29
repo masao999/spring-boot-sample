@@ -35,8 +35,8 @@ public class LoginTest {
                 HttpMethod.POST,
                 new HttpEntity<>(body, headers),
                 String.class);
-        assertThat(response.getHeaders().get("Set-Cookie").get(0).startsWith("JSESSIONID="),
-                is(true));
+        assertThat(response.getHeaders().get("Set-Cookie").get(0).startsWith("XSRF-TOKEN="), is(true));
+        assertThat(response.getHeaders().get("Set-Cookie").get(1).startsWith("JSESSIONID="), is(true));
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
     }
 }

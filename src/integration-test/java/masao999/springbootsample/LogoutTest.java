@@ -37,6 +37,10 @@ public class LogoutTest {
                 String.class);
         headers = new HttpHeaders();
         headers.add("Cookie", response.getHeaders().get("Set-Cookie").get(0));
+        headers.add("Cookie", response.getHeaders().get("Set-Cookie").get(1));
+        // substringでトークンの箇所のみ抜き出す
+        headers.set("X-XSRF-TOKEN", response.getHeaders().get("Set-Cookie").get(0).substring(11, 47));
+        headers.setContentType(MediaType.APPLICATION_JSON);
     }
 
     /**

@@ -12,6 +12,8 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 
 /**
  * セキュリティ設定クラス
@@ -80,14 +82,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler);
 
+        http.csrf()
+                .ignoringAntMatchers("/login")
+                .csrfTokenRepository(csrfTokenRepository());
+
         http.logout()
                 .logoutUrl("/logout")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .logoutSuccessHandler(logoutSuccessHandler);
-
-        // TODO: CSRFは暫定で無効にしておく
-        http.csrf().disable();
     }
 
     /**
@@ -111,5 +114,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     PasswordEncoder passwordEncoder() {
         // TODO: 別のエンコーダに変更が必要
         return NoOpPasswordEncoder.getInstance();
+    }
+
+    /**
+     * CsrfTokenRepository取得
+     *
+     * @return CsrfTokenRepository
+     */
+    private CsrfTokenRepository csrfTokenRepository() {
+        return new CookieCsrfTokenRepository();
     }
 }

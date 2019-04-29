@@ -36,7 +36,7 @@ public class HelloTest {
                 new HttpEntity<>(body, headersForLogin),
                 String.class);
         headers = new HttpHeaders();
-        headers.add("Cookie", response.getHeaders().get("Set-Cookie").get(0));
+        headers.add("Cookie", response.getHeaders().get("Set-Cookie").get(1));
     }
 
     /**
