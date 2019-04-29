@@ -1,11 +1,12 @@
 package masao999.springbootsample.controller;
 
-import masao999.springbootsample.entity.Sample;
 import masao999.springbootsample.service.ListService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * list APIのControllerクラス
@@ -33,7 +34,10 @@ public class ListController {
      * @return sampleテーブルの全行
      */
     @GetMapping(path = "/list")
-    public List<Sample> list() {
-        return listService.list();
+    public Map list() {
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("response", listService.list().stream().map(
+                sample -> sample.name).collect(Collectors.toList()));
+        return responseMap;
     }
 }
