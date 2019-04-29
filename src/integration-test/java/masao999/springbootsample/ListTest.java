@@ -50,7 +50,7 @@ public class ListTest {
                 HttpMethod.GET,
                 new HttpEntity<>(null, headers),
                 String.class);
-        assertThat(response.getBody().toString(), is("{\"response\":[\"hoge\"]}"));
+        assertThat(response.getBody().toString(), is("{\"response\":[\"one\",\"two\",\"three\"]}"));
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
     }
 
