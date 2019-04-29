@@ -19,6 +19,15 @@
 hello
 ```
 
+### list API
+
+sampleテーブルに格納されるnameを全てを返します。
+
+```text
+> curl -i -b cookie.txt "http://localhost:8080/list"
+{"response":["hoge"]}
+```
+
 ### logout API
 
 ログアウトすることで、他のAPIが使用できなくなります。

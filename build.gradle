@@ -18,6 +18,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'com.h2database:h2'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
@@ -42,6 +45,9 @@ dependencies {
     integrationTestImplementation 'org.springframework.boot:spring-boot-starter-web'
     integrationTestImplementation 'org.springframework.boot:spring-boot-starter-security'
     integrationTestImplementation 'org.springframework.boot:spring-boot-starter-aop'
+    integrationTestImplementation 'com.h2database:h2'
+    integrationTestImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
+    integrationTestImplementation 'com.fasterxml.jackson.core:jackson-databind'
     integrationTestImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

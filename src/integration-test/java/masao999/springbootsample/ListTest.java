@@ -13,11 +13,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 /**
- * hello APIのテストケース
+ * list APIのテストケース
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class HelloTest {
+public class ListTest {
 
     @Autowired
     private TestRestTemplate testRestTemplate;
@@ -40,17 +40,17 @@ public class HelloTest {
     }
 
     /**
-     * hello APIのテストケース
+     * list APIのテストケース
      */
     @Test
     @SuppressWarnings(value = {"ConstantConditions"})
-    public void testHello() {
+    public void testList() {
         ResponseEntity response = testRestTemplate.exchange(
-                "/hello",
+                "/list",
                 HttpMethod.GET,
                 new HttpEntity<>(null, headers),
                 String.class);
-        assertThat(response.getBody().toString(), is("hello"));
+        assertThat(response.getBody().toString(), is("{\"response\":[\"hoge\"]}"));
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
     }
 
@@ -60,7 +60,7 @@ public class HelloTest {
     @Test
     public void testHelloUnauthorized() {
         ResponseEntity response = testRestTemplate.exchange(
-                "/hello",
+                "/list",
                 HttpMethod.GET,
                 HttpEntity.EMPTY,
                 String.class);
