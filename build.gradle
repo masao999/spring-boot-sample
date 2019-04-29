@@ -20,3 +20,33 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
+
+sourceSets {
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/integration-test/java')
+        }
+        resources.srcDir file('src/integration-test/resources')
+    }
+}
+
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}
+
+dependencies {
+    integrationTestImplementation 'org.springframework.boot:spring-boot-starter'
+    integrationTestImplementation 'org.springframework.boot:spring-boot-starter-web'
+    integrationTestImplementation 'org.springframework.boot:spring-boot-starter-security'
+    integrationTestImplementation 'org.springframework.boot:spring-boot-starter-aop'
+    integrationTestImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+task integrationTest(type: Test) {
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+}
