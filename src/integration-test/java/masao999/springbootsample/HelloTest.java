@@ -13,11 +13,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 /**
- * ログアウト処理のテストケース
+ * hello APIのテストケース
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class LogoutTest {
+public class HelloTest {
 
     @Autowired
     private TestRestTemplate testRestTemplate;
@@ -40,13 +40,11 @@ public class LogoutTest {
     }
 
     /**
-     * ログアウト処理のテストケース
+     * hello APIのテストケース
      */
     @Test
     @SuppressWarnings(value = {"ConstantConditions"})
-    public void testLogout() {
-
-        // 認証時は認証が必要なAPIを呼び出せる
+    public void testHello() {
         ResponseEntity responseBeforeLogout = testRestTemplate.exchange(
                 "/hello",
                 HttpMethod.GET,
@@ -54,46 +52,18 @@ public class LogoutTest {
                 String.class);
         assertThat(responseBeforeLogout.getBody().toString(), is("hello"));
         assertThat(responseBeforeLogout.getStatusCode(), is(HttpStatus.OK));
-
-        // ログアウトする
-        ResponseEntity responseLogout = testRestTemplate.exchange(
-                "/logout",
-                HttpMethod.POST,
-                new HttpEntity<>(null, headers),
-                String.class);
-        assertThat(responseLogout.getStatusCode(), is(HttpStatus.OK));
-
-        // 認証が必要なAPIを呼び出せなくなる
-        ResponseEntity responseAfterLogout = testRestTemplate.exchange(
-                "/hello",
-                HttpMethod.GET,
-                new HttpEntity<>(null, headers),
-                String.class);
-        assertThat(responseAfterLogout.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
     }
 
     /**
-     * ログアウト処理の未認証テストケース
+     * hello APIの未認証テストケース
      */
     @Test
-    @SuppressWarnings(value = {"ConstantConditions"})
-    public void testLogoutUnauthorized() {
-
-        // ログアウトするがヘッダにCookieを設定していないので失敗
-        ResponseEntity response = testRestTemplate.exchange(
-                "/logout",
-                HttpMethod.POST,
-                HttpEntity.EMPTY,
-                String.class);
-        assertThat(response.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
-
-        // 認証が必要なAPIがまだ呼び出せる
+    public void testHelloUnauthorized() {
         ResponseEntity responseBeforeLogout = testRestTemplate.exchange(
                 "/hello",
                 HttpMethod.GET,
-                new HttpEntity<>(null, headers),
+                HttpEntity.EMPTY,
                 String.class);
-        assertThat(responseBeforeLogout.getBody().toString(), is("hello"));
-        assertThat(responseBeforeLogout.getStatusCode(), is(HttpStatus.OK));
+        assertThat(responseBeforeLogout.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
     }
 }
