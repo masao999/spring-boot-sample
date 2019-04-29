@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 /**
  * セキュリティ設定クラス
@@ -35,20 +35,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationEntryPoint authenticationEntryPoint;
 
     /**
+     * ログアウトが成功した場合のクラス
+     */
+    private final LogoutSuccessHandler logoutSuccessHandler;
+
+    /**
      * コンストラクタ
      *
      * @param authenticationSuccessHandler 認証が成功した場合のクラス
      * @param authenticationFailureHandler 認証が失敗した場合のクラス
      * @param authenticationEntryPoint     未認証のユーザが認証の必要なAPIにアクセスした場合のクラス
+     * @param logoutSuccessHandler         ログアウトが成功した場合のクラス
      */
     @Autowired
     public SecurityConfig(
             AuthenticationSuccessHandler authenticationSuccessHandler,
             AuthenticationFailureHandler authenticationFailureHandler,
-            AuthenticationEntryPoint authenticationEntryPoint) {
+            AuthenticationEntryPoint authenticationEntryPoint,
+            LogoutSuccessHandler logoutSuccessHandler) {
         this.authenticationSuccessHandler = authenticationSuccessHandler;
         this.authenticationFailureHandler = authenticationFailureHandler;
         this.authenticationEntryPoint = authenticationEntryPoint;
+        this.logoutSuccessHandler = logoutSuccessHandler;
     }
 
     /**
@@ -76,7 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
-                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
+                .logoutSuccessHandler(logoutSuccessHandler);
 
         // TODO: CSRFは暫定で無効にしておく
         http.csrf().disable();

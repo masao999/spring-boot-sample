@@ -71,4 +71,29 @@ public class LogoutTest {
                 String.class);
         assertThat(responseAfterLogout.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
     }
+
+    /**
+     * ログアウト処理の未認証テストケース
+     */
+    @Test
+    @SuppressWarnings(value = {"ConstantConditions"})
+    public void testLogoutUnauthorized() {
+
+        // ログアウトするがヘッダにCookieを設定していないので失敗
+        ResponseEntity response = testRestTemplate.exchange(
+                "/logout",
+                HttpMethod.POST,
+                HttpEntity.EMPTY,
+                String.class);
+        assertThat(response.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
+
+        // 認証が必要なAPIがまだ呼び出せる
+        ResponseEntity responseBeforeLogout = testRestTemplate.exchange(
+                "/hello",
+                HttpMethod.GET,
+                new HttpEntity<>(null, headers),
+                String.class);
+        assertThat(responseBeforeLogout.getBody().toString(), is("hello"));
+        assertThat(responseBeforeLogout.getStatusCode(), is(HttpStatus.OK));
+    }
 }
