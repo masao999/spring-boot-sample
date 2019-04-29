@@ -8,6 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 /**
  * ログ出力インターセプタ
  */
@@ -28,7 +32,12 @@ public class LogInterceptor {
     @Before("execution(* masao999.springbootsample..*.*(..))")
     public void invokeBefore(JoinPoint joinPoint) {
         info(joinPoint.getTarget().getClass().toString(),
-                joinPoint.getSignature().getName(), "start");
+                joinPoint.getSignature().getName(),
+                Arrays.stream(joinPoint.getArgs())
+                        .filter(Objects::nonNull)
+                        .map(Object::toString)
+                        .collect(Collectors.joining(",")),
+                "start");
     }
 
     /**
@@ -39,7 +48,12 @@ public class LogInterceptor {
     @After("execution(* masao999.springbootsample..*.*(..))")
     public void invokeAfter(JoinPoint joinPoint) {
         info(joinPoint.getTarget().getClass().toString(),
-                joinPoint.getSignature().getName(), "end");
+                joinPoint.getSignature().getName(),
+                Arrays.stream(joinPoint.getArgs())
+                        .filter(Objects::nonNull)
+                        .map(Object::toString)
+                        .collect(Collectors.joining(",")),
+                "end");
     }
 
     /**
@@ -47,9 +61,11 @@ public class LogInterceptor {
      *
      * @param className  クラス名
      * @param methodName メソッド名
+     * @param args       引数
      * @param message    出力内容
      */
-    private void info(String className, String methodName, String message) {
-        logger.info(className + "." + methodName + "() " + message + ".");
+    private void info(
+            final String className, final String methodName, final String args, final String message) {
+        logger.info(className + "." + methodName + "(" + args + ") " + message + ".");
     }
 }
