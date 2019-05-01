@@ -40,6 +40,13 @@ sampleテーブルに格納されるnameを全てを返します。
 {"response":["one","two","three"]}
 ```
 
+idを付けると対応するnameのみ返します。
+
+```text
+> curl -i -b cookie.txt "http://localhost:8080/list/1"
+{"response":"one"}
+```
+
 ### logout API
 
 ログアウトすることで、他のAPIが使用できなくなります。

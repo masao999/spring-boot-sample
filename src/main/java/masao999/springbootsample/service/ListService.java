@@ -15,4 +15,12 @@ public interface ListService {
      * @return sampleテーブルのエンティティリスト
      */
     List<Sample> list();
+
+    /**
+     * sampleテーブルの指定されたIDに対応する行を取得
+     *
+     * @param id ID
+     * @return sampleテーブルのエンティティ
+     */
+    Sample listById(final int id);
 }

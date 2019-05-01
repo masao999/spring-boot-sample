@@ -1,9 +1,15 @@
 package masao999.springbootsample.controller;
 
 import masao999.springbootsample.service.ListService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -12,6 +18,7 @@ import java.util.stream.Collectors;
  * list APIのControllerクラス
  */
 @RestController
+@Validated
 public class ListController {
 
     /**
@@ -38,6 +45,22 @@ public class ListController {
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("response", listService.list().stream().map(
                 sample -> sample.name).collect(Collectors.toList()));
+        return responseMap;
+    }
+
+    /**
+     * GETメソッドでのリクエストに対応
+     *
+     * @return sampleテーブルの指定されたIDに対応する行
+     */
+    @GetMapping(path = "/list/{id}")
+    public Map listById(@PathVariable("id")
+                        @NotNull
+                        @Min(1)
+                        @Max(9999)
+                        @Valid final int id) {
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("response", listService.listById(id).name);
         return responseMap;
     }
 }

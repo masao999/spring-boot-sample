@@ -55,12 +55,40 @@ public class ListTest {
     }
 
     /**
+     * list API(ID付)のテストケース
+     */
+    @Test
+    @SuppressWarnings(value = {"ConstantConditions"})
+    public void testListById() {
+        ResponseEntity response = testRestTemplate.exchange(
+                "/list/1",
+                HttpMethod.GET,
+                new HttpEntity<>(null, headers),
+                String.class);
+        assertThat(response.getBody().toString(), is("{\"response\":\"one\"}"));
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+    }
+
+    /**
      * hello APIの未認証テストケース
      */
     @Test
-    public void testHelloUnauthorized() {
+    public void testListUnauthorized() {
         ResponseEntity response = testRestTemplate.exchange(
                 "/list",
+                HttpMethod.GET,
+                HttpEntity.EMPTY,
+                String.class);
+        assertThat(response.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
+    }
+
+    /**
+     * hello API(ID付)の未認証テストケース
+     */
+    @Test
+    public void testListByIdUnauthorized() {
+        ResponseEntity response = testRestTemplate.exchange(
+                "/list/1",
                 HttpMethod.GET,
                 HttpEntity.EMPTY,
                 String.class);

@@ -21,4 +21,13 @@ public interface ListRepository {
      */
     @Select("SELECT * FROM sample ORDER BY id")
     List<Sample> list();
+
+    /**
+     * sampleテーブルの指定されたIDに対応する行を取得
+     *
+     * @param id ID
+     * @return sampleテーブルのエンティティ
+     */
+    @Select("SELECT * FROM sample WHERE id = #{id}")
+    Sample listById(final int id);
 }

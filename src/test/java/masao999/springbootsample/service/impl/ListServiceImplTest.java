@@ -12,6 +12,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 /**
@@ -54,5 +55,19 @@ public class ListServiceImplTest {
         assertThat(listService.list().size(), is(1));
         assertThat(listService.list().get(0).id, is(1));
         assertThat(listService.list().get(0).name, is("hoge"));
+    }
+
+    /**
+     * {@link ListServiceImpl#listById(int)}のテストケース
+     */
+    @Test
+    public void testListById() {
+        Sample sample = new Sample();
+        sample.id = 1;
+        sample.name = "hoge";
+        when(mockListRepository.listById(anyInt())).thenReturn(sample);
+
+        assertThat(listService.listById(1).id, is(1));
+        assertThat(listService.listById(1).name, is("hoge"));
     }
 }

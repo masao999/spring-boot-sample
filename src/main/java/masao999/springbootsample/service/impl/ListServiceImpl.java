@@ -37,4 +37,14 @@ public class ListServiceImpl implements ListService {
     public List<Sample> list() {
         return listRepository.list();
     }
+
+    /**
+     * sampleテーブルの指定されたIDに対応する行を取得
+     *
+     * @param id ID
+     * @return sampleテーブルのエンティティ
+     */
+    public Sample listById(final int id) {
+        return listRepository.listById(id);
+    }
 }
