@@ -116,5 +116,13 @@ public class ListTest {
                 new HttpEntity<>(null, headers),
                 String.class);
         assertThat(responseExceedMax.getStatusCode(), is(HttpStatus.BAD_REQUEST));
+
+        // IDが数字ではない
+        ResponseEntity responseNotNumber = testRestTemplate.exchange(
+                "/list/hoge",
+                HttpMethod.GET,
+                new HttpEntity<>(null, headers),
+                String.class);
+        assertThat(responseNotNumber.getStatusCode(), is(HttpStatus.BAD_REQUEST));
     }
 }
