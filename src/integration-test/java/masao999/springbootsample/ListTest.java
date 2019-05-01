@@ -94,4 +94,27 @@ public class ListTest {
                 String.class);
         assertThat(response.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
     }
+
+    /**
+     * hello API(ID付)のバリデーションNGテストケース
+     */
+    @Test
+    public void testListByIdValidationNg() {
+
+        // Min(1)を下回る場合
+        ResponseEntity responseLessThanMin = testRestTemplate.exchange(
+                "/list/0",
+                HttpMethod.GET,
+                new HttpEntity<>(null, headers),
+                String.class);
+        assertThat(responseLessThanMin.getStatusCode(), is(HttpStatus.BAD_REQUEST));
+
+        // Max(9999)を下回る場合
+        ResponseEntity responseExceedMax = testRestTemplate.exchange(
+                "/list/10000",
+                HttpMethod.GET,
+                new HttpEntity<>(null, headers),
+                String.class);
+        assertThat(responseExceedMax.getStatusCode(), is(HttpStatus.BAD_REQUEST));
+    }
 }
