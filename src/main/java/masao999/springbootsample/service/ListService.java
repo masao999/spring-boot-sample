@@ -3,6 +3,7 @@ package masao999.springbootsample.service;
 import masao999.springbootsample.entity.Sample;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * list APIのServiceインタフェース
@@ -22,5 +23,5 @@ public interface ListService {
      * @param id ID
      * @return sampleテーブルのエンティティ
      */
-    Sample listById(final int id);
+    Optional<Sample> listById(final int id);
 }

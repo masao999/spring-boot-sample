@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * list APIのRepositoryインタフェース
@@ -29,5 +30,5 @@ public interface ListRepository {
      * @return sampleテーブルのエンティティ
      */
     @Select("SELECT * FROM sample WHERE id = #{id}")
-    Sample listById(final int id);
+    Optional<Sample> listById(final int id);
 }

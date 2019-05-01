@@ -9,6 +9,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -65,9 +66,9 @@ public class ListServiceImplTest {
         Sample sample = new Sample();
         sample.id = 1;
         sample.name = "hoge";
-        when(mockListRepository.listById(anyInt())).thenReturn(sample);
+        when(mockListRepository.listById(anyInt())).thenReturn(Optional.of(sample));
 
-        assertThat(listService.listById(1).id, is(1));
-        assertThat(listService.listById(1).name, is("hoge"));
+        assertThat(listService.listById(1).map(s -> s.id).get(), is(1));
+        assertThat(listService.listById(1).map(s -> s.name).get(), is("hoge"));
     }
 }

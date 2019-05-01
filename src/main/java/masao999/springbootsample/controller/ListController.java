@@ -60,7 +60,8 @@ public class ListController {
                         @Max(9999)
                         @Valid final int id) {
         Map<String, Object> responseMap = new HashMap<>();
-        responseMap.put("response", listService.listById(id).name);
+        listService.listById(id).ifPresent(
+                sample -> responseMap.put("response", sample.name));
         return responseMap;
     }
 }

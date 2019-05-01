@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * list APIのService実装クラス
@@ -44,7 +45,7 @@ public class ListServiceImpl implements ListService {
      * @param id ID
      * @return sampleテーブルのエンティティ
      */
-    public Sample listById(final int id) {
+    public Optional<Sample> listById(final int id) {
         return listRepository.listById(id);
     }
 }

@@ -96,6 +96,21 @@ public class ListTest {
     }
 
     /**
+     * hello API(ID付)の対応する行がない場合のテストケース
+     */
+    @Test
+    @SuppressWarnings(value = {"ConstantConditions"})
+    public void testListByIdNothing() {
+        ResponseEntity response = testRestTemplate.exchange(
+                "/list/1000",
+                HttpMethod.GET,
+                new HttpEntity<>(null, headers),
+                String.class);
+        assertThat(response.getBody().toString(), is("{}"));
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+    }
+
+    /**
      * hello API(ID付)のバリデーションNGテストケース
      */
     @Test
