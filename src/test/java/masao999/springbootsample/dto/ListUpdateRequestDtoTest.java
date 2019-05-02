@@ -25,20 +25,20 @@ public class ListUpdateRequestDtoTest {
     }
 
     /**
-     * {@link ListUpdateRequestDto#setId(int)}と{@link ListUpdateRequestDto#getId()}のテストケース
+     * {@link ListUpdateRequestDto#setBeforeName(String)}と{@link ListUpdateRequestDto#getBeforeName()}のテストケース
      */
     @Test
-    public void testSetGetId() {
-        listUpdateRequestDto.setId(123);
-        assertThat(listUpdateRequestDto.getId(), is(123));
+    public void testSetGetBeforeName() {
+        listUpdateRequestDto.setBeforeName("hoge");
+        assertThat(listUpdateRequestDto.getBeforeName(), is("hoge"));
     }
 
     /**
-     * {@link ListUpdateRequestDto#setName(String)}と{@link ListUpdateRequestDto#getName()}のテストケース
+     * {@link ListUpdateRequestDto#setAfterName(String)}と{@link ListUpdateRequestDto#getAfterName()}のテストケース
      */
     @Test
-    public void testSetGetName() {
-        listUpdateRequestDto.setName("hoge");
-        assertThat(listUpdateRequestDto.getName(), is("hoge"));
+    public void testSetGetAfterName() {
+        listUpdateRequestDto.setAfterName("hoge");
+        assertThat(listUpdateRequestDto.getAfterName(), is("hoge"));
     }
 }

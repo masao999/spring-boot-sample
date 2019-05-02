@@ -41,13 +41,21 @@ public interface ListRepository {
     void listAdd(final String name);
 
     /**
-     * directoryテーブルの指定されたIDに対応する名前を更新
+     * directoryテーブルの指定された名前に対応する名前を更新
      *
-     * @param id   ID
+     * @param beforeName 変更前の名前
+     * @param afterName  変更後の名前
+     */
+    @Update("UPDATE directory SET name = #{afterName} WHERE name = #{beforeName}")
+    void listUpdate(
+            @Param("beforeName") final String beforeName,
+            @Param("afterName") final String afterName);
+
+    /**
+     * directoryテーブルの指定された名前に対応する行を削除
+     *
      * @param name 名前
      */
-    @Update("UPDATE directory SET name = #{name} WHERE id = #{id}")
-    void listUpdate(
-            @Param("id") final int id,
-            @Param("name") final String name);
+    @Delete("DELETE FROM directory WHERE name = #{name}")
+    void listDelete(final String name);
 }

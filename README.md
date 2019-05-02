@@ -53,10 +53,16 @@ directoryテーブルにnameを追加します。
 curl -i -b cookie.txt -H "Content-Type:application/json" -H "X-XSRF-TOKEN:68387842-dd10-4b1d-9568-a7cd2c0ed92d" -X POST "http://localhost:8080/list" -d "{\"name\":\"four\"}"
 ```
 
-directoryテーブルのidで指定した行のnameを更新します。
+directoryテーブルのbeforeNameで指定した行のnameをafterNameで更新します。
 
 ```text
-curl -i -b cookie.txt -H "Content-Type:application/json" -H "X-XSRF-TOKEN:68387842-dd10-4b1d-9568-a7cd2c0ed92d" -X PUT "http://localhost:8080/list" -d "{\"id\":3,\"name\":\"hoge\"}"
+curl -i -b cookie.txt -H "Content-Type:application/json" -H "X-XSRF-TOKEN:68387842-dd10-4b1d-9568-a7cd2c0ed92d" -X PUT "http://localhost:8080/list" -d "{\"beforeName\":\"three\",\"afterName\":\"hoge\"}"
+```
+
+directoryテーブルのnameで指定した行を削除します。
+
+```text
+curl -i -b cookie.txt -H "Content-Type:application/json" -H "X-XSRF-TOKEN:68387842-dd10-4b1d-9568-a7cd2c0ed92d" -X DELETE "http://localhost:8080/list" -d "{\"name\":\"three\"}"
 ```
 
 ### logout API

@@ -33,10 +33,17 @@ public interface ListService {
     void listAdd(final String name);
 
     /**
-     * directoryテーブルの指定されたIDに対応する名前を更新
+     * directoryテーブルの指定された名前に対応する名前を更新
      *
-     * @param id   ID
+     * @param beforeName 変更前の名前
+     * @param afterName  変更後の名前
+     */
+    void listUpdate(final String beforeName, final String afterName);
+
+    /**
+     * directoryテーブルの指定された名前に対応する行を削除
+     *
      * @param name 名前
      */
-    void listUpdate(final int id, final String name);
+    void listDelete(final String name);
 }

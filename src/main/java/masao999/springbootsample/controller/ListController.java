@@ -1,6 +1,7 @@
 package masao999.springbootsample.controller;
 
 import masao999.springbootsample.dto.ListAddRequestDto;
+import masao999.springbootsample.dto.ListDeleteRequestDto;
 import masao999.springbootsample.dto.ListUpdateRequestDto;
 import masao999.springbootsample.entity.Directory;
 import masao999.springbootsample.service.ListService;
@@ -82,6 +83,15 @@ public class ListController {
     @PutMapping(path = "/list")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void listUpdate(@RequestBody @Valid ListUpdateRequestDto dto) {
-        listService.listUpdate(dto.getId(), dto.getName());
+        listService.listUpdate(dto.getBeforeName(), dto.getAfterName());
+    }
+
+    /**
+     * DELETEメソッドでのリクエストに対応
+     */
+    @DeleteMapping(path = "/list")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void listDelete(@RequestBody @Valid ListDeleteRequestDto dto) {
+        listService.listDelete(dto.getName());
     }
 }

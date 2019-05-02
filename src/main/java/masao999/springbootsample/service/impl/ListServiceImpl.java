@@ -59,12 +59,21 @@ public class ListServiceImpl implements ListService {
     }
 
     /**
-     * directoryテーブルの指定されたIDに対応する名前を更新
+     * directoryテーブルの指定された名前に対応する名前を更新
      *
-     * @param id   ID
+     * @param beforeName 変更前の名前
+     * @param afterName  変更後の名前
+     */
+    public void listUpdate(final String beforeName, final String afterName) {
+        listRepository.listUpdate(beforeName, afterName);
+    }
+
+    /**
+     * directoryテーブルの指定された名前に対応する行を削除
+     *
      * @param name 名前
      */
-    public void listUpdate(final int id, final String name) {
-        listRepository.listUpdate(id, name);
+    public void listDelete(final String name) {
+        listRepository.listDelete(name);
     }
 }
