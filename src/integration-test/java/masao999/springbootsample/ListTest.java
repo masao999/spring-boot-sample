@@ -36,11 +36,15 @@ public class ListTest {
                 new HttpEntity<>(body, headersForLogin),
                 String.class);
         headers = new HttpHeaders();
+        headers.add("Cookie", response.getHeaders().get("Set-Cookie").get(0));
         headers.add("Cookie", response.getHeaders().get("Set-Cookie").get(1));
+        // substringでトークンの箇所のみ抜き出す
+        headers.set("X-XSRF-TOKEN", response.getHeaders().get("Set-Cookie").get(0).substring(11, 47));
+        headers.setContentType(MediaType.APPLICATION_JSON);
     }
 
     /**
-     * list APIのテストケース
+     * list API(全行参照)のテストケース
      */
     @Test
     @SuppressWarnings(value = {"ConstantConditions"})
@@ -55,7 +59,7 @@ public class ListTest {
     }
 
     /**
-     * list API(ID付)のテストケース
+     * list API(1行参照)のテストケース
      */
     @Test
     @SuppressWarnings(value = {"ConstantConditions"})
@@ -70,7 +74,31 @@ public class ListTest {
     }
 
     /**
-     * hello APIの未認証テストケース
+     * list API(追加)のテストケース
+     */
+    @Test
+    @SuppressWarnings(value = {"ConstantConditions"})
+    public void testLisAdd() {
+        final String body = "{\"name\":\"four\"}";
+        ResponseEntity response = testRestTemplate.exchange(
+                "/list",
+                HttpMethod.POST,
+                new HttpEntity<>(body, headers),
+                String.class);
+        assertThat(response.getBody().toString(), is("{\"response\":\"OK\"}"));
+        assertThat(response.getStatusCode(), is(HttpStatus.CREATED));
+
+        ResponseEntity responseAfterAdd = testRestTemplate.exchange(
+                "/list",
+                HttpMethod.GET,
+                new HttpEntity<>(null, headers),
+                String.class);
+        assertThat(responseAfterAdd.getBody().toString(), is("{\"response\":[\"one\",\"two\",\"three\",\"four\"]}"));
+        assertThat(responseAfterAdd.getStatusCode(), is(HttpStatus.OK));
+    }
+
+    /**
+     * hello API(全行参照)の未認証テストケース
      */
     @Test
     public void testListUnauthorized() {
@@ -83,7 +111,7 @@ public class ListTest {
     }
 
     /**
-     * hello API(ID付)の未認証テストケース
+     * hello API(1行参照)の未認証テストケース
      */
     @Test
     public void testListByIdUnauthorized() {
@@ -96,7 +124,7 @@ public class ListTest {
     }
 
     /**
-     * hello API(ID付)の対応する行がない場合のテストケース
+     * hello API(1行参照)の対応する行がない場合のテストケース
      */
     @Test
     @SuppressWarnings(value = {"ConstantConditions"})
@@ -111,7 +139,7 @@ public class ListTest {
     }
 
     /**
-     * hello API(ID付)のバリデーションNGテストケース
+     * hello API(1行参照)のバリデーションNGテストケース
      */
     @Test
     public void testListByIdValidationNg() {

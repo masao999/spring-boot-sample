@@ -47,15 +47,15 @@ public class ListServiceImplTest {
     @Test
     public void testList() {
         Directory directory = new Directory();
-        directory.id = 1;
-        directory.name = "hoge";
+        directory.setId(1);
+        directory.setName("hoge");
         List<Directory> directoryList = new ArrayList<>();
         directoryList.add(directory);
         when(mockListRepository.list()).thenReturn(directoryList);
 
         assertThat(listService.list().size(), is(1));
-        assertThat(listService.list().get(0).id, is(1));
-        assertThat(listService.list().get(0).name, is("hoge"));
+        assertThat(listService.list().get(0).getId(), is(1));
+        assertThat(listService.list().get(0).getName(), is("hoge"));
     }
 
     /**
@@ -64,11 +64,11 @@ public class ListServiceImplTest {
     @Test
     public void testListById() {
         Directory directory = new Directory();
-        directory.id = 1;
-        directory.name = "hoge";
+        directory.setId(1);
+        directory.setName("hoge");
         when(mockListRepository.listById(anyInt())).thenReturn(Optional.of(directory));
 
-        assertThat(listService.listById(1).map(d -> d.id).get(), is(1));
-        assertThat(listService.listById(1).map(d -> d.name).get(), is("hoge"));
+        assertThat(listService.listById(1).map(Directory::getId).get(), is(1));
+        assertThat(listService.listById(1).map(Directory::getName).get(), is("hoge"));
     }
 }
