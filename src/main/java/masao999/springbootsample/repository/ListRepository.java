@@ -1,7 +1,9 @@
 package masao999.springbootsample.repository;
 
-import masao999.springbootsample.entity.Sample;
+import masao999.springbootsample.entity.Directory;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -16,19 +18,28 @@ import java.util.Optional;
 public interface ListRepository {
 
     /**
-     * sampleテーブルの全行を取得
+     * directoryテーブルの全行を取得
      *
-     * @return sampleテーブルのエンティティリスト
+     * @return directoryテーブルのエンティティリスト
      */
-    @Select("SELECT * FROM sample ORDER BY id")
-    List<Sample> list();
+    @Select("SELECT * FROM directory ORDER BY id")
+    List<Directory> list();
 
     /**
-     * sampleテーブルの指定されたIDに対応する行を取得
+     * directoryテーブルの指定されたIDに対応する行を取得
      *
      * @param id ID
-     * @return sampleテーブルのエンティティ
+     * @return directoryテーブルのエンティティ
      */
-    @Select("SELECT * FROM sample WHERE id = #{id}")
-    Optional<Sample> listById(final int id);
+    @Select("SELECT * FROM directory WHERE id = #{id}")
+    Optional<Directory> listById(final int id);
+
+    /**
+     * directoryテーブルの指定された名前に対応する行を追加
+     *
+     * @param name 名前
+     */
+    @Insert("INSERT INTO directory (name) VALUES (#{name})")
+    @Options(useGeneratedKeys = true)
+    void listAdd(final String name);
 }

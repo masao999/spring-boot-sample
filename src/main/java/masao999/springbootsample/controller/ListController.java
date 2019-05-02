@@ -38,20 +38,20 @@ public class ListController {
     /**
      * GETメソッドでのリクエストに対応
      *
-     * @return sampleテーブルの全行
+     * @return directoryテーブルの全行
      */
     @GetMapping(path = "/list")
     public Map list() {
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("response", listService.list().stream().map(
-                sample -> sample.name).collect(Collectors.toList()));
+                directory -> directory.name).collect(Collectors.toList()));
         return responseMap;
     }
 
     /**
      * GETメソッドでのリクエストに対応
      *
-     * @return sampleテーブルの指定されたIDに対応する行
+     * @return directoryテーブルの指定されたIDに対応する行
      */
     @GetMapping(path = "/list/{id}")
     public Map listById(@PathVariable("id")
@@ -61,7 +61,7 @@ public class ListController {
                         @Valid final int id) {
         Map<String, Object> responseMap = new HashMap<>();
         listService.listById(id).ifPresent(
-                sample -> responseMap.put("response", sample.name));
+                directory -> responseMap.put("response", directory.name));
         return responseMap;
     }
 }

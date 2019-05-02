@@ -1,9 +1,9 @@
 package masao999.springbootsample.entity;
 
 /**
- * sampleテーブルのエンティティクラス
+ * directoryテーブルのエンティティクラス
  */
-public class Sample {
+public class Directory {
 
     /**
      * ID
