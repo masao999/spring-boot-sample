@@ -85,7 +85,6 @@ public class ListTest {
                 HttpMethod.POST,
                 new HttpEntity<>(body, headers),
                 String.class);
-        assertThat(response.getBody().toString(), is("{\"response\":\"OK\"}"));
         assertThat(response.getStatusCode(), is(HttpStatus.CREATED));
 
         ResponseEntity responseAfterAdd = testRestTemplate.exchange(
@@ -95,6 +94,37 @@ public class ListTest {
                 String.class);
         assertThat(responseAfterAdd.getBody().toString(), is("{\"response\":[\"one\",\"two\",\"three\",\"four\"]}"));
         assertThat(responseAfterAdd.getStatusCode(), is(HttpStatus.OK));
+    }
+
+    /**
+     * list API(更新)のテストケース
+     */
+    @Test
+    @SuppressWarnings(value = {"ConstantConditions"})
+    public void testLisUpdate() {
+        final String body = "{\"id\":3,\"name\":\"hoge\"}";
+        ResponseEntity response = testRestTemplate.exchange(
+                "/list",
+                HttpMethod.PUT,
+                new HttpEntity<>(body, headers),
+                String.class);
+        assertThat(response.getStatusCode(), is(HttpStatus.NO_CONTENT));
+
+        ResponseEntity responseAfterAdd = testRestTemplate.exchange(
+                "/list",
+                HttpMethod.GET,
+                new HttpEntity<>(null, headers),
+                String.class);
+        assertThat(responseAfterAdd.getBody().toString(), is("{\"response\":[\"one\",\"two\",\"hoge\"]}"));
+        assertThat(responseAfterAdd.getStatusCode(), is(HttpStatus.OK));
+
+        final String bodyRestore = "{\"id\":3,\"name\":\"three\"}";
+        ResponseEntity responseRestore = testRestTemplate.exchange(
+                "/list",
+                HttpMethod.PUT,
+                new HttpEntity<>(bodyRestore, headers),
+                String.class);
+        assertThat(responseRestore.getStatusCode(), is(HttpStatus.NO_CONTENT));
     }
 
     /**
@@ -222,5 +252,14 @@ public class ListTest {
                 new HttpEntity<>(body257, headers),
                 String.class);
         assertThat(response257.getStatusCode(), is(HttpStatus.BAD_REQUEST));
+
+        // nameの指定がない場合
+        final String bodyNoName = "{\"hoge\":\"four\"}";
+        ResponseEntity responseNoName = testRestTemplate.exchange(
+                "/list",
+                HttpMethod.POST,
+                new HttpEntity<>(bodyNoName, headers),
+                String.class);
+        assertThat(responseNoName.getStatusCode(), is(HttpStatus.BAD_REQUEST));
     }
 }

@@ -31,4 +31,12 @@ public interface ListService {
      * @param name 名前
      */
     void listAdd(final String name);
+
+    /**
+     * directoryテーブルの指定されたIDに対応する名前を更新
+     *
+     * @param id   ID
+     * @param name 名前
+     */
+    void listUpdate(final int id, final String name);
 }

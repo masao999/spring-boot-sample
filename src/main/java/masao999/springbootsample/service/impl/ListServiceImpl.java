@@ -57,4 +57,14 @@ public class ListServiceImpl implements ListService {
     public void listAdd(final String name) {
         listRepository.listAdd(name);
     }
+
+    /**
+     * directoryテーブルの指定されたIDに対応する名前を更新
+     *
+     * @param id   ID
+     * @param name 名前
+     */
+    public void listUpdate(final int id, final String name) {
+        listRepository.listUpdate(id, name);
+    }
 }

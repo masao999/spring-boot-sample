@@ -1,6 +1,7 @@
 package masao999.springbootsample.controller;
 
 import masao999.springbootsample.dto.ListAddRequestDto;
+import masao999.springbootsample.dto.ListUpdateRequestDto;
 import masao999.springbootsample.entity.Directory;
 import masao999.springbootsample.service.ListService;
 import org.springframework.http.HttpStatus;
@@ -68,15 +69,19 @@ public class ListController {
 
     /**
      * POSTメソッドでのリクエストに対応
-     *
-     * @return OK応答
      */
     @PostMapping(path = "/list")
     @ResponseStatus(HttpStatus.CREATED)
-    public Map listAdd(@RequestBody @Valid ListAddRequestDto dto) {
-        Map<String, Object> responseMap = new HashMap<>();
+    public void listAdd(@RequestBody @Valid ListAddRequestDto dto) {
         listService.listAdd(dto.getName());
-        responseMap.put("response", "OK");
-        return responseMap;
+    }
+
+    /**
+     * PUTメソッドでのリクエストに対応
+     */
+    @PutMapping(path = "/list")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void listUpdate(@RequestBody @Valid ListUpdateRequestDto dto) {
+        listService.listUpdate(dto.getId(), dto.getName());
     }
 }
