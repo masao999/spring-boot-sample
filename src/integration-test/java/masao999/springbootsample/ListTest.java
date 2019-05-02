@@ -111,6 +111,20 @@ public class ListTest {
     }
 
     /**
+     * hello API(追加)の未認証テストケース
+     */
+    @Test
+    public void testListAddUnauthorized() {
+        final String body = "{\"name\":\"four\"}";
+        ResponseEntity response = testRestTemplate.exchange(
+                "/list",
+                HttpMethod.POST,
+                new HttpEntity<>(body, null),
+                String.class);
+        assertThat(response.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
+    }
+
+    /**
      * hello API(1行参照)の未認証テストケース
      */
     @Test
@@ -152,7 +166,23 @@ public class ListTest {
                 String.class);
         assertThat(responseLessThanMin.getStatusCode(), is(HttpStatus.BAD_REQUEST));
 
-        // Max(9999)を下回る場合
+        // Min(1)と等しい場合
+        ResponseEntity responseEqualMin = testRestTemplate.exchange(
+                "/list/1",
+                HttpMethod.GET,
+                new HttpEntity<>(null, headers),
+                String.class);
+        assertThat(responseEqualMin.getStatusCode(), is(HttpStatus.OK));
+
+        // Max(9999)と等しい場合
+        ResponseEntity responseEqualMax = testRestTemplate.exchange(
+                "/list/9999",
+                HttpMethod.GET,
+                new HttpEntity<>(null, headers),
+                String.class);
+        assertThat(responseEqualMax.getStatusCode(), is(HttpStatus.OK));
+
+        // Max(9999)を上回る場合
         ResponseEntity responseExceedMax = testRestTemplate.exchange(
                 "/list/10000",
                 HttpMethod.GET,
@@ -167,5 +197,30 @@ public class ListTest {
                 new HttpEntity<>(null, headers),
                 String.class);
         assertThat(responseNotNumber.getStatusCode(), is(HttpStatus.BAD_REQUEST));
+    }
+
+    /**
+     * hello API(追加)のバリデーションNGテストケース
+     */
+    @Test
+    public void testLisAddValidationNg() {
+
+        // @Size(max = 256)と等しい場合
+        final String body256 = "{\"name\":\"1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456\"}";
+        ResponseEntity response256 = testRestTemplate.exchange(
+                "/list",
+                HttpMethod.POST,
+                new HttpEntity<>(body256, headers),
+                String.class);
+        assertThat(response256.getStatusCode(), is(HttpStatus.CREATED));
+
+        // @Size(max = 256)を上回る場合
+        final String body257 = "{\"name\":\"12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567\"}";
+        ResponseEntity response257 = testRestTemplate.exchange(
+                "/list",
+                HttpMethod.POST,
+                new HttpEntity<>(body257, headers),
+                String.class);
+        assertThat(response257.getStatusCode(), is(HttpStatus.BAD_REQUEST));
     }
 }
