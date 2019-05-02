@@ -213,6 +213,20 @@ public class ListTest {
     }
 
     /**
+     * hello API(削除)の未認証テストケース
+     */
+    @Test
+    public void testListDeleteUnauthorized() {
+        final String body = "{\"name\":\"three\"}";
+        ResponseEntity response = testRestTemplate.exchange(
+                "/list",
+                HttpMethod.DELETE,
+                new HttpEntity<>(body, null),
+                String.class);
+        assertThat(response.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
+    }
+
+    /**
      * hello API(1行参照)の対応する行がない場合のテストケース
      */
     @Test
@@ -375,5 +389,39 @@ public class ListTest {
                 new HttpEntity<>(bodyNoAfterName, headers),
                 String.class);
         assertThat(responseNoAfterName.getStatusCode(), is(HttpStatus.BAD_REQUEST));
+    }
+
+    /**
+     * hello API(削除)のバリデーションNGテストケース
+     */
+    @Test
+    public void testLisDeleteValidationNg() {
+
+        // @Size(max = 256)と等しい場合
+        final String body256 = "{\"name\":\"1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456\"}";
+        ResponseEntity response256 = testRestTemplate.exchange(
+                "/list",
+                HttpMethod.DELETE,
+                new HttpEntity<>(body256, headers),
+                String.class);
+        assertThat(response256.getStatusCode(), is(HttpStatus.NO_CONTENT));
+
+        // @Size(max = 256)を上回る場合
+        final String body257 = "{\"name\":\"12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567\"}";
+        ResponseEntity response257 = testRestTemplate.exchange(
+                "/list",
+                HttpMethod.DELETE,
+                new HttpEntity<>(body257, headers),
+                String.class);
+        assertThat(response257.getStatusCode(), is(HttpStatus.BAD_REQUEST));
+
+        // nameの指定がない場合
+        final String bodyNoName = "{\"hoge\":\"three\"}";
+        ResponseEntity responseNoName = testRestTemplate.exchange(
+                "/list",
+                HttpMethod.DELETE,
+                new HttpEntity<>(bodyNoName, headers),
+                String.class);
+        assertThat(responseNoName.getStatusCode(), is(HttpStatus.BAD_REQUEST));
     }
 }
