@@ -69,23 +69,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        // login以外は認証されたユーザしか許可しない
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .anyRequest()
                 .authenticated();
 
+        // 未認証のユーザが認証の必要なAPIにアクセスした場合の処理を設定
         http.exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint);
 
+        // loginに関する設定
         http.formLogin()
                 .loginProcessingUrl("/login")
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler);
 
+        // CSRF対策に関する設定
         http.csrf()
                 .ignoringAntMatchers("/login")
                 .csrfTokenRepository(csrfTokenRepository());
 
+        // logoutに関する設定
         http.logout()
                 .logoutUrl("/logout")
                 .invalidateHttpSession(true)
