@@ -1,6 +1,6 @@
-INSERT INTO sample (name)
+INSERT INTO directory (name)
 VALUES ('one');
-INSERT INTO sample (name)
+INSERT INTO directory (name)
 VALUES ('two');
-INSERT INTO sample (name)
+INSERT INTO directory (name)
 VALUES ('three');

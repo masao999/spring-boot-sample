@@ -33,7 +33,7 @@ hello
 
 ### list API
 
-sampleテーブルに格納されるnameを全てを返します。
+directoryテーブルに格納されるnameを全てを返します。
 
 ```text
 > curl -i -b cookie.txt "http://localhost:8080/list"
@@ -45,6 +45,24 @@ idを付けると対応するnameのみ返します。
 ```text
 > curl -i -b cookie.txt "http://localhost:8080/list/1"
 {"response":"one"}
+```
+
+directoryテーブルにnameを追加します。
+
+```text
+curl -i -b cookie.txt -H "Content-Type:application/json" -H "X-XSRF-TOKEN:68387842-dd10-4b1d-9568-a7cd2c0ed92d" -X POST "http://localhost:8080/list" -d "{\"name\":\"four\"}"
+```
+
+directoryテーブルのbeforeNameで指定した行のnameをafterNameで更新します。
+
+```text
+curl -i -b cookie.txt -H "Content-Type:application/json" -H "X-XSRF-TOKEN:68387842-dd10-4b1d-9568-a7cd2c0ed92d" -X PUT "http://localhost:8080/list" -d "{\"beforeName\":\"three\",\"afterName\":\"hoge\"}"
+```
+
+directoryテーブルのnameで指定した行を削除します。
+
+```text
+curl -i -b cookie.txt -H "Content-Type:application/json" -H "X-XSRF-TOKEN:68387842-dd10-4b1d-9568-a7cd2c0ed92d" -X DELETE "http://localhost:8080/list" -d "{\"name\":\"three\"}"
 ```
 
 ### logout API

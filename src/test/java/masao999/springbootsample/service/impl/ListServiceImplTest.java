@@ -1,6 +1,6 @@
 package masao999.springbootsample.service.impl;
 
-import masao999.springbootsample.entity.Sample;
+import masao999.springbootsample.entity.Directory;
 import masao999.springbootsample.repository.ListRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,16 +46,16 @@ public class ListServiceImplTest {
      */
     @Test
     public void testList() {
-        Sample sample = new Sample();
-        sample.id = 1;
-        sample.name = "hoge";
-        List<Sample> sampleList = new ArrayList<>();
-        sampleList.add(sample);
-        when(mockListRepository.list()).thenReturn(sampleList);
+        Directory directory = new Directory();
+        directory.setId(1);
+        directory.setName("hoge");
+        List<Directory> directoryList = new ArrayList<>();
+        directoryList.add(directory);
+        when(mockListRepository.list()).thenReturn(directoryList);
 
         assertThat(listService.list().size(), is(1));
-        assertThat(listService.list().get(0).id, is(1));
-        assertThat(listService.list().get(0).name, is("hoge"));
+        assertThat(listService.list().get(0).getId(), is(1));
+        assertThat(listService.list().get(0).getName(), is("hoge"));
     }
 
     /**
@@ -63,12 +63,12 @@ public class ListServiceImplTest {
      */
     @Test
     public void testListById() {
-        Sample sample = new Sample();
-        sample.id = 1;
-        sample.name = "hoge";
-        when(mockListRepository.listById(anyInt())).thenReturn(Optional.of(sample));
+        Directory directory = new Directory();
+        directory.setId(1);
+        directory.setName("hoge");
+        when(mockListRepository.listById(anyInt())).thenReturn(Optional.of(directory));
 
-        assertThat(listService.listById(1).map(s -> s.id).get(), is(1));
-        assertThat(listService.listById(1).map(s -> s.name).get(), is("hoge"));
+        assertThat(listService.listById(1).map(Directory::getId).get(), is(1));
+        assertThat(listService.listById(1).map(Directory::getName).get(), is("hoge"));
     }
 }

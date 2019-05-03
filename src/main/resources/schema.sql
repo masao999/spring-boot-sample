@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS sample;
-CREATE TABLE sample
+DROP TABLE IF EXISTS directory;
+CREATE TABLE directory
 (
     id   INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR

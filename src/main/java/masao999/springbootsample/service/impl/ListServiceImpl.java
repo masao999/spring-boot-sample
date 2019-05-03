@@ -1,6 +1,6 @@
 package masao999.springbootsample.service.impl;
 
-import masao999.springbootsample.entity.Sample;
+import masao999.springbootsample.entity.Directory;
 import masao999.springbootsample.repository.ListRepository;
 import masao999.springbootsample.service.ListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,21 +31,49 @@ public class ListServiceImpl implements ListService {
     }
 
     /**
-     * sampleテーブルの全行を取得
+     * directoryテーブルの全行を取得
      *
-     * @return sampleテーブルのエンティティリスト
+     * @return directoryテーブルのエンティティリスト
      */
-    public List<Sample> list() {
+    public List<Directory> list() {
         return listRepository.list();
     }
 
     /**
-     * sampleテーブルの指定されたIDに対応する行を取得
+     * directoryテーブルの指定されたIDに対応する行を取得
      *
      * @param id ID
-     * @return sampleテーブルのエンティティ
+     * @return directoryテーブルのエンティティ
      */
-    public Optional<Sample> listById(final int id) {
+    public Optional<Directory> listById(final int id) {
         return listRepository.listById(id);
+    }
+
+    /**
+     * directoryテーブルの指定された名前に対応する行を追加
+     *
+     * @param name 名前
+     */
+    public void listAdd(final String name) {
+        listRepository.listAdd(name);
+    }
+
+    /**
+     * directoryテーブルの指定された名前に対応する名前を更新
+     *
+     * @param beforeName 変更前の名前
+     * @param afterName  変更後の名前
+     */
+    public void listUpdate(final String beforeName, final String afterName) {
+        listRepository.listUpdate(beforeName, afterName);
+    }
+
+    /**
+     * directoryテーブルの指定された名前に対応する行を削除
+     *
+     * @param name 名前
+     */
+    public void listDelete(final String name) {
+        listRepository.listDelete(name);
     }
 }
