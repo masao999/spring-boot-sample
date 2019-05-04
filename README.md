@@ -12,7 +12,7 @@
 
 cookie.txtからCSRFトークンを確認します。  
 以下の例だと"68387842-dd10-4b1d-9568-a7cd2c0ed92d"です。  
-POSTメソッドのAPIを使用する時に、ヘッダに設定する必要があります。
+GET以外のメソッドのAPIを使用する時に、ヘッダに設定する必要があります。
 ```text
 # Netscape HTTP Cookie File
 # https://curl.haxx.se/docs/http-cookies.html
