@@ -1,6 +1,6 @@
 package masao999.springbootsample.service.impl;
 
-import masao999.springbootsample.repository.impl.HelloRepositoryImpl;
+import masao999.springbootsample.repository.HelloRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -21,10 +21,10 @@ public class HelloServiceImplTest {
     private HelloServiceImpl helloService;
 
     /**
-     * hello APIのeRepository実装クラスのモック
+     * hello APIのRepositoryのモック
      */
     @Mock
-    private HelloRepositoryImpl mockHelloRepository;
+    private HelloRepository mockHelloRepository;
 
     /**
      * 事前処理

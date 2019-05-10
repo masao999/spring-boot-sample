@@ -27,7 +27,7 @@ public class ListServiceImplTest {
     private ListServiceImpl listService;
 
     /**
-     * List APIのeRepository実装クラスのモック
+     * List APIのRepositoryのモック
      */
     @Mock
     private ListRepository mockListRepository;
